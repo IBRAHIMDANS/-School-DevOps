@@ -1,0 +1,5 @@
+all:
+  children:
+    www:
+      hosts:
+        212.47.247.7: {}

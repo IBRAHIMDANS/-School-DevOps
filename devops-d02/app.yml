@@ -1,0 +1,46 @@
+- hosts: www
+  remote_user: root
+  vars_files:
+  - 'vault'
+  tasks:
+  - name: Create dir for container
+    file:
+      path: "/opt/my-app/"
+      state: directory
+
+  - name: Copy docker-compose
+    copy:
+      src: "./docker-compose.yml"
+      dest: "/opt/my-app//docker-compose.yml"
+      owner: root
+
+  - name: Install docker from pip
+    pip:
+      name: docker-compose
+
+  - name: Login to registry
+    docker_login:
+      registry: registry.efrei.yayo.fr
+      username: "louisadam"
+      password: '{{ vault_registry_password }}'
+    register: output
+
+  - debug:
+      var: output
+
+  - name: Tear down existing services
+    docker_compose:
+      files: "/opt/my-app/docker-compose.yml"
+      project_src: app
+      state: absent
+
+  - name: Create and start services
+    docker_compose:
+      files: "/opt/my-app/docker-compose.yml"
+      project_src: app
+    register: output
+
+  - debug:
+      var: output
+
+

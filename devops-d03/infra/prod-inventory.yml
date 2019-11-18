@@ -1,0 +1,5 @@
+all:
+  children:
+    www:
+      hosts:
+        51.158.74.138: {}

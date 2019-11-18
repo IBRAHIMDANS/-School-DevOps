@@ -1,0 +1,14 @@
+- hosts: all
+  remote_user: root
+  tasks:
+  - name: Install pkg with apt-get
+    package:
+      force_apt_get: True
+      name: ['sl']
+      state: present
+  - name: Create symbolic link
+    file:
+      dest: "/usr/local/bin/sl"
+      src: "/usr/games/sl"
+      state: link
+      force: True

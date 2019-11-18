@@ -1,0 +1,13 @@
+version: '3'
+services:
+  mycompose:
+    build: ./
+    image: registry.efrei.yayo.fr/louisadam/devops-d01/hellonode:latest
+    container_name: mynodecomposed
+    ports:
+    - 1234:8080
+    volumes:
+    - ./:/app
+    working_dir: /app
+    command: node index.js
+    restart: always

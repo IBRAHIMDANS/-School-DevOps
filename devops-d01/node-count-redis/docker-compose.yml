@@ -1,0 +1,27 @@
+version: '3'
+networks:
+  app-tiers:
+    driver: bridge
+
+services:
+  mynode:
+    build: ./
+    container_name: mynode
+    ports:
+      - 1234:8080
+    networks:
+      - app-tiers
+    environment:
+      REDIS_HOST: myredis
+      REDIS_PORT: 6379
+
+  myredis:
+    image: redis:latest
+    container_name: myredis
+    volumes:
+      - .data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - app-tiers
+    ports:
+      - 6379:6379

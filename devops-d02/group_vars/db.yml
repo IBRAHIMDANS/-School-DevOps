@@ -1,0 +1,2 @@
+group_vars:
+  ex06_mkdir: False

@@ -1,0 +1,13 @@
+- hosts: all
+  remote_user: root
+  tasks:
+  - name: ansible create directory
+    file:
+      path: "/opt/ex06"
+      state: directory
+    when: group_vars.ex06_mkdir
+  - name: ansible delete directory
+      file:
+        path: "/opt/ex06"
+        state: absent
+      when: not group_vars.ex06_mkdir

@@ -1,0 +1,2 @@
+# Install Docker from the Ansible Galaxy
+- src: geerlingguy.docker
